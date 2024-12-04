@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/css/style.css")
+    title Register
+  body
+    .register-container
+      h1 Đăng ký
+      if error
+        p.error= error
+      form(action="/register" method="POST")
+        div
+          label Email:
+          input(type="email" name="email" required)
+        div
+          label Mật khẩu:
+          input(type="password" name="password" required)
+        div
+          label Xác nhận mật khẩu:
+          input(type="password" name="confirmPassword" required)
+        button(type="submit") Đăng ký
+      a(href="/login") Quay lại đăng nhập
