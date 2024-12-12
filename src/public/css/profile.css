@@ -1,0 +1,99 @@
+/* Đặt nền và font tổng thể */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container chính */
+  .profile-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  /* Thông tin cá nhân */
+  .personal-info {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+  
+  .personal-info h1 {
+    margin: 10px 0;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .personal-info p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .personal-info strong {
+    color: #333;
+  }
+  
+  /* Danh sách thẻ tín dụng */
+  .credit-info h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .credit-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .credit-entry {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .credit-entry p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .credit-entry strong {
+    color: #333;
+  }
+  
+  /* Nút hành động */
+  .actions {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .actions .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .actions .button:hover {
+    background: #0056b3;
+  }
+  

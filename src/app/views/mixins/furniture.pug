@@ -1,0 +1,9 @@
+mixin add-furniture(name='', number=1)
+  .furniture-entry
+    label(for="furniture_name") Tên Nội Thất:
+    input(type="text" name="furniture_name" value=name required placeholder="Tên nội thất")
+
+    label(for="furniture_number") Số Lượng:
+    input(type="number" name="furniture_number" value=number required placeholder="Số lượng")
+    
+    button(type="button" class="remove-furniture") Xóa

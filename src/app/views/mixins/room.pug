@@ -1,0 +1,18 @@
+mixin roomBox(room)
+    tr(id=`room-row-${room.room_number}`)
+        td= room.room_number
+        td= room.status
+        td= room.floor
+        td= room.area
+        td= room.hour_price
+        td= room.daily_price
+        td= room.type
+        td
+        if room.image
+            img(src=room.image, alt="Hình ảnh phòng", width="100")
+        else
+            p Chưa có hình ảnh
+        td= room.notes
+        td
+        a(href=`/rooms/editroom/${room.room_number}`) Sửa
+        button.btn.btn-danger(type="button", onclick=`deleteRoom('${room.room_number}')`) Xóa

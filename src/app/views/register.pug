@@ -1,24 +1,69 @@
 doctype html
-html(lang="en")
+html
   head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    link(rel="stylesheet", href="/css/style.css")
-    title Register
+    if error
+      p.error= error
+    
+    title User Registration
+    link(rel="stylesheet" href="/css/style.css")
+    script.
+      function addCreditField() {
+        const container = document.getElementById('credit-container');
+        const newCreditDiv = document.createElement('div');
+        newCreditDiv.classList.add('credit-entry');
+
+        newCreditDiv.innerHTML = `          
+          <label for="credit_name">Cardholder Name:</label>
+          <input type="text" name="credit_name" required placeholder="Enter cardholder name">
+
+          <label for="credit_number">Credit Card Number:</label>
+          <input type="text" name="credit_number" required placeholder="Enter credit card number">
+
+          <button type="button" onclick="removeCreditField(this)">Remove</button>
+        `;
+        
+        container.appendChild(newCreditDiv);
+      }
+
+      function removeCreditField(button) {
+        const creditDiv = button.parentElement;
+        creditDiv.remove();
+      }
   body
-    .register-container
-      h1 Đăng ký
-      if error
-        p.error= error
-      form(action="/register" method="POST")
-        div
-          label Email:
-          input(type="email" name="email" required)
-        div
-          label Mật khẩu:
-          input(type="password" name="password" required)
-        div
-          label Xác nhận mật khẩu:
-          input(type="password" name="confirmPassword" required)
-        button(type="submit") Đăng ký
-      a(href="/login") Quay lại đăng nhập
+    h1 User Registration Form
+    form(action="/register" method="POST")
+      fieldset
+        legend Account Information
+        label(for="username") Username:
+        input(type="text" id="username" name="username" required placeholder="Enter username")
+        
+        label(for="password") Password:
+        input(type="password" id="password" name="password" required placeholder="Enter password")
+                
+        label(for="confirmPassword") Confirm Password:
+        input(type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm Password")
+
+      fieldset
+        legend Personal Information
+        label(for="first_name") First Name:
+        input(type="text" id="first_name" name="first_name" required placeholder="Enter first name")
+        
+        label(for="last_name") Last Name:
+        input(type="text" id="last_name" name="last_name" required placeholder="Enter last name")
+        
+        label(for="email") Email:
+        input(type="email" id="email" name="email" required placeholder="Enter email")
+        
+        label(for="phone") Phone:
+        input(type="tel" id="phone" name="phone" required placeholder="Enter phone number")
+        
+        label(for="address") Address:
+        input(type="text" id="address" name="address" placeholder="Enter address")
+
+      fieldset
+        legend Credit Information
+        #credit-container
+
+        button(type="button" onclick="addCreditField()") Add Credit Card
+
+      button(type="submit") Register

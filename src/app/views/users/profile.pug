@@ -1,0 +1,40 @@
+include ../mixins/credit.pug
+
+doctype html
+html
+  head
+    title User Profile
+    link(rel="stylesheet" href="/css/profile.css")
+  body
+    .profile-container
+      .personal-info
+        img.profile-img(src=user.img alt="Profile Picture")
+        h1 #{user.first_name} #{user.last_name}
+        p
+          strong Email: 
+          | #{user.email}
+        p
+          strong Phone: 
+          | #{user.phone}
+        p
+          strong Address: 
+          | #{user.address}
+
+      .credit-info
+        h2 Credit Cards
+        ul.credit-list
+          each credit in credits
+            +creditCard(credit)
+
+      .actions
+        a.button(href="/dashboard") Back to Dashboard
+
+    //- Mixin định nghĩa hiển thị credit card
+    mixin creditCard(credit)
+      li.credit-entry
+        p
+          strong Cardholder Name: 
+          | #{credit.name}
+        p
+          strong Card Number: 
+          | #{credit.number}

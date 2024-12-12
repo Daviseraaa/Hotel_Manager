@@ -30,3 +30,83 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+fieldset {
+    border: 2px solid #007BFF;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+  
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+.credit-entry {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+ }
+  
+.credit-entry button {
+    margin-top: 10px;
+    color: red;
+    cursor: pointer;
+}
+  
+button[type="submit"] {
+    margin-top: 20px;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+header {
+    background-color: #ffffff;
+    padding: 15px 0;
+    border-bottom: 1px solid #ccc;
+}
+  
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+  
+  .logo a img {
+    width: 150px;
+}
+  
+  .right-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+  
+  .right-menu ul li {
+    margin-right: 20px;
+}
+  
+  .right-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+  
+  .right-menu ul li a:hover {
+    color: #007bff;
+}

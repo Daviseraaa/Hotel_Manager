@@ -12,10 +12,10 @@ html(lang="en")
         p.error= error
       form(action="/login" method="POST")
         div
-          label Email:
-          input(type="email" name="email" required)
+          label Username:
+          input(type="text" name="username" required)
         div
-          label Mật khẩu:
+          label Password:
           input(type="password" name="password" required)
         button(type="submit") Đăng nhập
       a(href="/register") Đăng ký tài khoản mới
