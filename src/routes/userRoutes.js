@@ -6,7 +6,7 @@ const auth = require('../middlewares/authMiddleware')
 const router = express.Router()
 
 // Using auth
-//router.use(auth.user)
+router.use(auth.user)
 
 // Render profile
 router.get('/profile', userController.renderProfile);
