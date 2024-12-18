@@ -46,7 +46,7 @@ const handleRegister = async (req, res) => {
         
         // Error handler
         console.error("Đã xảy ra lỗi khi đăng ký: ", error.message);
-        res.status(500).send(`Đã xảy ra lỗi trong quá trình đăng ký: ${error.message}`);
+        res.status(500).send(`Đã xảy ra lỗi trong quá trình đăng ký!<br>${error.message}`);
     }
 };
 
@@ -83,7 +83,7 @@ const renderProfile = async (req, res) => {
         });
     } catch (error) {
         console.error("Lỗi khi tải thông tin người dùng: ", error);
-        res.status(500).send("Đã xảy ra lỗi khi tải trang profile.");
+        res.status(500).send("Đã xảy ra lỗi khi tải trang profile.<br>" + error.message);
     }     
 };
 

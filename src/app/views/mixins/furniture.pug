@@ -1,7 +1,7 @@
-mixin add-furniture(name='', number=1)
+mixin add-furniture(name='', number=1, readonly=false)
   .furniture-entry
     label(for="furniture_name") Tên Nội Thất:
-    input(type="text" name="furniture_name" value=name required placeholder="Tên nội thất")
+    input(type="text" name="furniture_name" value=name required placeholder="Tên nội thất" readonly=readonly)
 
     label(for="furniture_number") Số Lượng:
     input(type="number" name="furniture_number" value=number required placeholder="Số lượng")

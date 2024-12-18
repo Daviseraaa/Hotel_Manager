@@ -43,7 +43,29 @@ function uploadWithFolder(folder) {
           fileFilter: fileFilter
     });
 }
-  
+
+function deleteFile(filePath) {
+  console.log(__dirname)
+  fs.unlink(path.join(__dirname, '../public' + filePath), (err) => {
+    if (err) {
+      // Nếu có lỗi khi xóa file
+      throw err
+    }
+    console.log(`Remove ${filePath}`)
+  });
+}
+
+const checkFileExists = async (filePath) => {
+  try {
+      await fs.promises.access(filePath, fs.constants.F_OK);
+      return true; // Tệp tồn tại
+  } catch (err) {
+      return false; // Tệp không tồn tại
+  }
+};
+
 module.exports = {
-    uploadWithFolder
+  uploadWithFolder,
+  deleteFile,
+  checkFileExists
 }

@@ -21,6 +21,10 @@ app.use(session({
 // Middleware config
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use((req, res, next) => {
+    res.locals.baseUrl = req.baseUrl || '';
+    next();
+});
 
 // Error Handler
 app.use(errorHandler);

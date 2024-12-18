@@ -4,15 +4,29 @@ include ../../mixins/room.pug
 
 block content 
     h1 Quản lý phòng 
-    a(href="/rooms/createroom")
+    a(href=`/admin/room/create`)
         button Thêm phòng 
 
     // Lặp qua tất cả các phòng và hiển thị thông tin
     if rooms && rooms.length > 0
-        each room in rooms
-            +roomBox(room)    
+        table
+            thead
+            tr
+                th Số Phòng
+                th Trạng Thái
+                th Tầng
+                th Diện Tích
+                th Giá Theo Giờ
+                th Giá Theo Ngày
+                th Loại
+                th Hình Ảnh
+                th Ghi Chú
+                th Hành Động
+            tbody
+                each room in rooms
+                    +roomBox(room)
     else
-      p Không có phòng nào để hiển thị.
+        p Không có phòng nào để hiển thị.
 
 block script 
     script(src="/js/roomManager.js") 

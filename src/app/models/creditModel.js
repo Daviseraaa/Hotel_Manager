@@ -7,7 +7,7 @@ const createCreditUser = async (name, number, user_id) => {
     try {
         const [rows] = await connection.execute('INSERT INTO credit_infor (name, number, user_id) VALUES (?, ?, ?)', [name, number, user_id]);
         return rows[0];
-    } catch {
+    } catch (err) {
         console.log('Error on creating credit');
         throw err;
     }

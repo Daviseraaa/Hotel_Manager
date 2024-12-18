@@ -1,0 +1,61 @@
+include ../../mixins/furniture.pug
+
+doctype html
+html
+  head
+    title Chỉnh sửa phòng
+    link(rel="stylesheet" href="/css/style.css")
+    script(src="/js/editRoom.js")
+
+  body
+    h1 Chỉnh sửa thông tin phòng
+    form(action=`/admin/room/edit/${room.room_number}` method="POST" enctype="multipart/form-data")
+      fieldset
+        legend Thông tin phòng
+        label(for="room_number") Số phòng:
+        input(type="number" id="room_number" name="room_number" required value=room.room_number readonly)
+
+        label(for="floor") Tầng:
+        input(type="number" id="floor" name="floor" required value=room.floor)
+
+        label(for="area") Diện tích (m²):
+        input(type="number" id="area" name="area" value=room.area)
+
+        label(for="hour_price") Giá theo giờ:
+        input(type="number" id="hour_price" name="hour_price" required value=room.hour_price)
+
+        label(for="daily_price") Giá theo ngày:
+        input(type="number" id="daily_price" name="daily_price" value=room.daily_price)
+
+        label(for="type") Loại phòng:
+        select(id="type" name="type" required)
+          option(value="single" selected=(room.type == 'single')) Phòng đơn
+          option(value="double" selected=(room.type == 'double')) Phòng đôi
+          option(value="suite" selected=(room.type == 'suite')) Phòng hạng sang
+
+        label(for="status") Trạng thái:
+        select(id="status" name="status" required)
+          option(value="idle" selected=(room.status == 'idle')) Trống
+          option(value="bussy" selected=(room.status == 'bussy')) Đang sử dụng
+
+        label(for="image") Hình ảnh:
+        input(type="file" id="image" name="image" accept="image/*")
+        
+        img(src=room.img id="room_image" name="room_image" alt="Hình ảnh phòng" width="200")
+
+        label(for="notes") Ghi chú:
+        textarea(id="notes" name="notes")= room.notes
+
+      fieldset
+        legend Đồ nội thất
+        #furniture-container
+          each item in room.furnitures
+            +add-furniture(item.name, item.number, readonly=true)
+        #new-furniture-container
+
+        button(type="button" id="add-furniture-btn") Thêm Nội Thất
+
+      button(type="submit") Lưu Thay Đổi
+
+    template#furniture-template
+      +add-furniture()
