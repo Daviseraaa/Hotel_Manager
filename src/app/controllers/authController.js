@@ -4,7 +4,12 @@ const { urlencoded } = require('express');
 
 // Hiển thị trang đăng nhập
 const renderLoginPage = (req, res) => {
-    res.render('login', { error: null });
+    let err = null
+    if (!req.session.user) {
+        err = "Ban chua dang nhap";
+    }
+
+    res.render('login', { error: err });
 };
 
 // Xử lý đăng nhập

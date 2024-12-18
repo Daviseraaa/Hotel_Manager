@@ -3,10 +3,12 @@ const roomRoutes = require('./roomRoutes')
 
 const auth = require('../../middlewares/authMiddleware')
 
-const route = express.Router()
+const router = express.Router()
 
-//route.use(auth.admin)
+// Auth middleware
+router.use(auth.loginRequired)
+router.use(auth.admin)
 
-route.use('/room', roomRoutes)
+router.use('/room', roomRoutes)
 
-module.exports = route
+module.exports = router

@@ -47,7 +47,7 @@ const handelCreateRoom = async (req, res) => {
 
             res.redirect('/admin/room/');
         } catch (err) {
-            if (req.file.filename && image !== "/img/default/room.jpg") {
+            if (req.file && image !== "/img/default/room.jpg") {
                 serverStore.deleteFile(image)
             }            
             return res.status(500).send('Lỗi khi tạo phòng! <br>' + err.message)
