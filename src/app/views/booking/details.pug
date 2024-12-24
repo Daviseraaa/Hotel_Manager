@@ -125,12 +125,12 @@ block content
         // Dịch vụ đã sử dụng
         h2 Chi tiết dịch vụ
         .box
-          if services && services.length
+          if services && services.length > 0
             ul
               each service in services
                 li
                   strong Tên dịch vụ: 
-                  | #{service.name}
+                  | #{service.service_name}
                   br
                   strong Số lượng: 
                   | #{service.number}

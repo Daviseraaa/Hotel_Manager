@@ -18,6 +18,7 @@ router.get('/user', adminController.renderUserList)
 router.get('/user/edit/:id', adminController.renderUserEdit)
 router.post('/user/edit/:id', adminController.editUser)
 router.get('/user/view/:id', adminController.renderUserView)
-
+router.post('/api/confirm-payment/:id', adminController.confirmPayment)
+router.post('/api/checkout/:id', adminController.checkout)
 
 module.exports = router

@@ -83,6 +83,16 @@ const getServicesByBookingId = async (booking_id) => {
     }
 }
 
+const getServicesByRoom = async (number) => {
+    const connection = await db.getConnection()
+    try {
+        const [services] = await connection.execute("SELECT * from serving JOIN booking ON serving.booking_id = booking.id WHERE room_number = ?", [number])
+        return services
+    } catch (err) {
+        throw new Error("Get Serving Failed: " + err.message)
+    }
+}
+
 module.exports = {
     checkServiceExits,
     createService,
@@ -90,5 +100,6 @@ module.exports = {
     updateService,
     getServiceList,
     getServiceById,
-    getServicesByBookingId
+    getServicesByBookingId,
+    getServicesByRoom
 }

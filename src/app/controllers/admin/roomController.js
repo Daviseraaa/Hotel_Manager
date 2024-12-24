@@ -94,7 +94,7 @@ const renderEditPage = async (req, res) => {
         })
     } catch (err) {
         console.log('Lỗi khi tải thông tin phòng')
-        res.status(500).send({message: 'Lỗi khi lấy thông tin phòng: ' + err.message})
+        res.status(500).send('Lỗi khi lấy thông tin phòng: ' + err.message)
     }
 }
 

@@ -1,42 +1,53 @@
-.btn {
-  padding: 8px 15px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-  transition: background-color 0.3s ease;
-}
+extends ../layout
 
-.btn-primary {
-  background-color: #007bff;
-}
+block title
+    title Danh Sách Đặt Phòng
 
-.btn-primary:hover {
-  background-color: #0056b3;
-}
+block style
+    link(rel="stylesheet", href="/css/page/bookingList.css")
 
-.btn-primary:active {
-  background-color: #004085;
-}
+block script 
+  script(src="/js/bookingManager.js")
 
-.badge {
-  padding: 5px 10px;
-  font-size: 14px;
-  color: #fff;
-  border-radius: 5px;
-  text-transform: uppercase;
-}
+block content
+  .booking-container
+    h1 Danh Sách Đặt Phòng
 
-.badge-paid {
-  background-color: #28a745;
-}
+    if bookings && bookings.length
+        table
+            thead
+                tr
+                    th Mã Đặt Phòng
+                    th Phòng
+                    th Ngày Nhận Phòng
+                    th Ngày Trả Phòng
+                    th Thời điểm đặt
+                    th Thông tin đặt phòng
+                    th Trạng Thái
+                    th Tình trạng thanh toán
+                    th Checkout
 
-.badge-pending {
-  background-color: #ffc107;
-  color: #333;
-}
-
-.
+            tbody
+                each booking in bookings
+                    tr
+                    td #{booking.id}
+                    td #{booking.room_number}
+                    td.datetime  #{booking.from_time}
+                    td.datetime  #{booking.to_time}
+                    td.datetime  #{booking.rent_at}
+                    td 
+                        if booking.payment_status === 'paid'
+                            span.badge.badge-paid Đã Thanh Toán
+                        else if booking.payment_status === 'pending'
+                            span.badge.badge-pending Chờ Thanh Toán
+                        else
+                            span.badge.badge-unpaid Chưa Thanh Toán
+                    td
+                        a.btn.btn-primary(href=`/booking/details/${booking.id}`) Thông tin
+                    td
+                        if booking.payment_status === 'pending'
+                            button.btn.btn-primary.payment-btn(data-id=`${booking.id}`) Xác Nhận Thanh Toán              
+                    td
+                        button.btn.btn-primary.checkout-btn(data-id=`${booking.id}`) Checkout
+    else
+        p Không có thông tin đặt phòng nào.

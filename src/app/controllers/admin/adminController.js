@@ -1,5 +1,4 @@
 const db = require('../../../config/db')
-const { user } = require('../../../middlewares/authMiddleware')
 const userModel = require('../../models/userModel')
 const bookingModel = require('../../models/bookingModel')
 const serverStore = require('../../../config/serverStore')
@@ -97,9 +96,39 @@ const renderUserView = async (req, res) => {
     }
 }
 
+const confirmPayment = async (req, res) => {
+    const bookingId = req.params.id;
+    try {
+        const amount = await bookingModel.calculateTotalAmount(bookingId)
+        await bookingModel.confirmPayment(bookingId, amount)
+
+        res.status(200).json({ message: 'Xác nhận thanh toán thành công.' });
+    } catch (err) {
+        console.error(err);
+        await db.rollbackTransaction();
+        res.status(500).json({ message: 'Có lỗi xảy ra, vui lòng thử lại.' });
+    }
+}
+
+const checkout = async (req, res) => {
+    const bookingId = req.params.id;
+
+    try {
+        await bookingModel.checkout(bookingId)
+
+        res.status(200).json({ message: 'Checkout thành công.' });
+    } catch (err) {
+        console.error(err);
+        await db.rollbackTransaction();
+        res.status(500).json({ message: 'Có lỗi xảy ra, vui lòng thử lại.' });
+    }
+}
+
 module.exports = {
     renderUserList,
     renderUserEdit,
     editUser,
-    renderUserView
+    renderUserView,
+    confirmPayment,
+    checkout
 }

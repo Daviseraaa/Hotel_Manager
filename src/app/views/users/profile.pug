@@ -30,6 +30,25 @@ block content
     .history-section
       .booking-history
         h2 Lịch sử đặt phòng
+        if curBookings && curBookings.lenght > 0
+          table
+            thead
+              tr
+                th Số phòng
+                th Loại phòng
+                th Thời gian đến
+                th Thời gian đi
+            tbody
+              each curBooking in curBookings
+                tr
+                  td #{curBooking.room_number}
+                  td #{curBooking.room_type}
+                  td #{curBooking.from_time}
+                  td #{curBooking.to_time}
+        else
+          p Chưa có lịch sử đặt phòng.
+      .booking-history
+        h2 Lịch sử đặt phòng
         if bookings
           table
             thead
@@ -38,7 +57,6 @@ block content
                 th Loại phòng
                 th Thời gian đến
                 th Thời gian đi
-                th Thành tiền
             tbody
               each booking in bookings
                 tr
@@ -46,7 +64,6 @@ block content
                   td #{booking.room_type}
                   td #{booking.from_time}
                   td #{booking.to_time}
-                  td #{booking.income}
         else
           p Chưa có lịch sử đặt phòng.
 
@@ -58,13 +75,11 @@ block content
               tr
                 th Tên dịch vụ
                 th Số lượng
-                th Giá thành
             tbody
               each service in services
                 tr
                   td #{service.service_name}
                   td #{service.number}
-                  td #{service.income}
 
         else
           p Chưa có lịch sử sử dụng dịch vụ.

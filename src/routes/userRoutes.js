@@ -11,5 +11,8 @@ router.use(auth.user)
 
 // Render profile
 router.get('/profile', userController.renderProfile);
+router.get('/service', userController.renderService);
+router.post('/service/add', userController.addServiceToRoom);
+
 
 module.exports = router

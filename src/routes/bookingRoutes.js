@@ -8,6 +8,6 @@ const router = express.Router()
 router.get('/:number', bookingController.renderBooking)
 router.post('/:number', bookingController.handleBooking)
 router.get('/details/:id', bookingController.renderBookingDetails)
-router.get('/manager', auth.admin, bookingController.renderManager)
+router.get('/admin/manager', auth.loginRequired ,auth.admin, bookingController.renderManager)
 
 module.exports = router

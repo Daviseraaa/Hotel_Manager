@@ -132,7 +132,7 @@ const renderBookingDetails = async (req, res) => {
             return res.status(404).send("Booking not found");
         }
         const services = await serviceModel.getServicesByBookingId(bookingId);
-        
+        console.log(services)
         const user = await userModel.getUserInfor(booking.user_id);
         const credits = await creditModel.getCreditsByUserId(user.id);
         const room = await roomModel.getRoomDetail(booking.room_number);
@@ -153,6 +153,7 @@ const renderBookingDetails = async (req, res) => {
                 ...booking,
                 total_price: total_price,
             },
+            services: services,
             priceDetails
         });
     } catch (err) {
@@ -161,6 +162,18 @@ const renderBookingDetails = async (req, res) => {
     }
 }
 const renderManager = async (req, res) => {
+    try{
+        const bookings = await bookingModel.getBooking()
+        console.log(bookings)
+        
+        res.render('booking/manager', {
+            session: req.session,
+            bookings: bookings
+        });
+    } catch (err) {
+        console.log("Lỗi khi tải thông tin đặt phòng")
+        res.status(500).send(`Lỗi khi tải thông tin đặt phòng ${err.message}`)
+    }
 
 }
 

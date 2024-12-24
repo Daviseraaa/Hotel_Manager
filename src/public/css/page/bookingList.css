@@ -1,0 +1,108 @@
+/* File: /css/page/bookingList.css */
+
+/* Container chính */
+.booking-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề */
+.booking-container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Bảng danh sách đặt phòng */
+.booking-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.booking-container table thead {
+    background-color: #007BFF;
+    color: white;
+}
+
+.booking-container table thead th {
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.booking-container table tbody tr {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.booking-container table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.booking-container table tbody td {
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Badge trạng thái */
+.badge {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.badge-paid {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge-pending {
+    background-color: #ffc107;
+    color: black;
+}
+
+.badge-unpaid {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Nút hành động */
+.booking-container .btn {
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.booking-container .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.booking-container .btn-primary:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+button.btn, button.payment-btn, button.checkout-btn {
+    width: 100%;
+    box-sizing: border-box;
+}

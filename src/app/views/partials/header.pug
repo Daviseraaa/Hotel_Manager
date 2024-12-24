@@ -11,14 +11,13 @@ header.header
               li: a(href="/admin/room") Quản lý phòng
               li: a(href="/admin/user") Quản lý nhân viên
               li: a(href="/admin/service") Quản lý dịch vụ
-              li: a(href="/booking/manager") Thông tin thuê phòng    
-      else
-        nav.nav-links
-          ul
-            li: a(href="#") Đặt phòng
-            li: a(href="#") Điểm đến
-            li: a(href="#") Hỗ trợ
-            li: a(href="#") Chuyến đi
+              li: a(href="/booking/admin/manager") Thông tin thuê phòng    
+        else
+          nav.nav-links
+            ul
+              li: a(href="/dashboard") Đặt phòng
+              li: a(href="/user/service") Dịch vụ
+              li: a(href="") Hỗ trợ
     .actions
       if !session
         div.login-links

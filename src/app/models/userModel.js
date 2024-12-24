@@ -57,8 +57,9 @@ const addUserinfor = async (user_id ,{first_name, last_name, email, phone, addre
 const getBookings = async (userId) => {
     const connection = await db.getConnection()
     const query = `SELECT id, room_number, room_type, from_time, to_time, income FROM history WHERE user_id = ?`;
-    return connection.execute(query, [userId]);
-  }
+    const [bookings] = await connection.execute(query, [userId]);
+    return bookings  
+}
   
 const getServices = async (userId) => {
     const connection = await db.getConnection()
@@ -67,7 +68,8 @@ const getServices = async (userId) => {
         FROM history_serve hs
         JOIN history h ON hs.history_id = h.id
         WHERE h.user_id = ?`;
-    return connection.execute(query, [userId]);
+    const [ services ] = await connection.execute(query, [userId]);
+    return services
 }
 
 // Tìm bằng ID

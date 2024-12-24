@@ -2,6 +2,9 @@ const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel.js');
 const creditModel = require('../models/creditModel.js');
 const roomModel = require('../models/roomModel.js')
+const bookingModel = require('../models/bookingModel.js')
+const serviceModel = require('../models/serviceModel.js')
+
 const db = require('../../config/db.js')
 
 // Hiển thị trang đăng ký
@@ -105,12 +108,13 @@ const renderProfile = async (req, res) => {
         const bookings = await userModel.getBookings(userID); 
         const services = await userModel.getServices(userID);
         const userCredits = await creditModel.getCreditsByUserId(userID);
-    
+        const curBookings = await bookingModel.findByUserId(userID)
         res.render('users/profile', {
             session: req.session,
             user: user,
             credits: userCredits,
             bookings: bookings,
+            curBookings: curBookings,
             services: services
         });
     } catch (error) {
@@ -119,10 +123,93 @@ const renderProfile = async (req, res) => {
     }    
 };
 
+const renderService = async (req, res) => {
+    var selectedRoomNumber  = req.query.room_number
+    const userId = req.session.user.id
+    try {
+        const bookings = await bookingModel.findByUserId(userId);
+        const rooms = bookings.map(booking => booking.room_number);
+        const services = await serviceModel.getServiceList()
+        
+        if (!selectedRoomNumber) {
+            selectedRoomNumber = rooms[0]
+        }
+        if (selectedRoomNumber) {
+            var currentServices = await serviceModel.getServicesByRoom(selectedRoomNumber)
+        }
+        
+        res.render('admin/service/add', {
+            session: req.session,
+            rooms: rooms,
+            services: services,
+            currentServices: currentServices
+        })
+    } catch (error) {
+        console.log("Lỗi khi tải dịch vụ: ", error);
+        res.status(500).send("Đã xảy ra lỗi khi tải dịch vụvụ" + error.message);
+    }
+
+}
+ 
+const addServiceToRoom = async (req, res) => {
+    const { room_number, service_id, quantity } = req.body;
+    const userId = req.session.user.id;
+
+    try {
+        const connection = await db.getConnection();
+        
+        const [booking] = await bookingModel.findByUserId(userId)
+
+        if (booking.length === 0) {
+            return res.status(400).json({ message: 'Không tìm thấy phòng đã đặt hoặc phòng chưa thanh toán.' });
+        }
+        
+
+        const bookingId = Array.isArray(booking) ? booking[0].id : booking.id;
+
+        const service = await serviceModel.getServiceById(service_id)
+
+        if (!service) {
+            return res.status(400).json({ message: 'Dịch vụ không tồn tại.' });
+        }
+
+        const serviceName = service.name;
+        const servicePrice = service.price;
+
+        const [result] = await connection.execute(
+            `INSERT INTO serving (booking_id, service_id, service_name, number, serve_at, income)
+             VALUES (?, ?, ?, ?, NOW(), ?)`,
+            [bookingId, service_id, serviceName, quantity, servicePrice]
+        );
+
+        await connection.execute(
+            `UPDATE service SET inventory = inventory - ? WHERE id = ?`,
+            [quantity, service_id]
+        );
+
+        const totalIncome = servicePrice * quantity;
+        await connection.execute(
+            `INSERT INTO income_log (income_type, amount, description)
+             VALUES ('service_income', ?, 'Thu nhập từ dịch vụ phòng ${room_number}')`,
+            [totalIncome]
+        );
+
+        await db.commitTransaction()
+        res.status(200).json({ message: 'Dịch vụ đã được thêm thành công.' });
+    } catch (error) {
+        await db.rollbackTransaction()
+        console.log(error);
+        res.status(500).json({ message: 'Lỗi khi thêm dịch vụ cho phòng.' });
+    }
+};
+
+
 module.exports = {
     renderRegisterPage,
     handleRegister,
     renderDashboard,
     handleLogout,
-    renderProfile
+    renderProfile,
+    renderService,
+    addServiceToRoom
 };
