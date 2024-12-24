@@ -1,8 +1,4 @@
 mixin creditCard(credit)
-  li.credit-entry
-    p
-      strong Cardholder Name: 
-      | #{credit.name}
-    p
-      strong Card Number: 
-      | #{credit.number}
+  .credit-card
+    .card-name #{credit.name}
+    .card-number #{credit.number}

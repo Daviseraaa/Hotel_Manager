@@ -1,0 +1,86 @@
+extends ../../layout
+
+block title
+  title Thông Tin Người Dùng
+
+block style
+  link(rel="stylesheet", href="/css/page/userDetails.css")
+
+block content
+  .user-details-container
+    h1 Thông Tin Người Dùng
+
+    // Hiển thị thông tin người dùng
+    .user-info
+      .profile-card
+        .profile-image
+          if user.img
+            img(src=user.img alt=`Ảnh đại diện của ${user.first_name} ${user.last_name}`)
+          else
+            img(src="/img/default/prof.jpg" alt="Ảnh đại diện mặc định")
+
+        .profile-details
+          ul
+            li
+              strong Họ và Tên: 
+              | #{user.last_name} #{user.first_name}
+            li
+              strong Email: 
+              | #{user.email}
+            li
+              strong Số điện thoại: 
+              | #{user.phone}
+            li
+              strong Địa chỉ: 
+              | #{user.address || 'Chưa cập nhật'}
+            li
+              strong Vai trò: 
+              | #{user.role}
+
+    // Hiển thị danh sách booking hiện tại
+    .booking-list
+      h2 Danh Sách Đặt Phòng Hiện Tại
+      if bookings
+        table
+          thead
+            tr
+              th Mã Đặt Phòng
+              th Phòng
+              th Từ Ngày
+              th Đến Ngày
+              th Trạng Thái
+          tbody
+            each booking in bookings
+              tr
+                td #{booking.id}
+                td #{booking.room_number}
+                td #{booking.from_time}
+                td #{booking.to_time}
+                td #{booking.check_in ? 'Đã nhận phòng' : 'Chưa nhận phòng'}
+      else
+        p Chưa có phòng nào được đặt.
+
+    // Hiển thị lịch sử đặt phòng
+    .history-list
+      h2 Lịch Sử Đặt Phòng
+      if history
+        table
+          thead
+            tr
+              th Mã Lịch Sử
+              th Phòng
+              th Loại Phòng
+              th Từ Ngày
+              th Đến Ngày
+              th Thu Nhập
+          tbody
+            each record in history
+              tr
+                td #{record.id}
+                td #{record.room_number}
+                td #{record.room_type}
+                td #{record.from_time}
+                td #{record.to_time}
+                td #{record.income} VND
+      else
+        p Chưa có lịch sử đặt phòng.

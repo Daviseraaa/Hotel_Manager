@@ -1,18 +1,50 @@
 mixin roomBox(room)
-    tr(id=`room-row-${room.room_number}`)
-        td(id="roomnumber")= room.room_number
-        td= room.status
-        td= room.floor
-        td= room.area
-        td= room.hour_price
-        td= room.daily_price
-        td= room.type
-        td
-            if room.img
-                img(src=room.img, alt="Hình ảnh phòng", width="100")
-            else
-                p Chưa có hình ảnh
-        td= room.notes
-        td
-            a(href=`${baseUrl}edit/${room.room_number}`) Sửa
-            button.btn.btn-danger(type="button", onclick=`deleteRoom('${room.room_number}')`) Xóa
+  .room-card(id=`room-row-${room.room_number}`)
+    .room-image
+      if room.img
+        img(src=room.img, alt="Hình ảnh phòng")
+      else
+        p Chưa có hình ảnh
+    .room-info
+      .room-header
+        h3 #{room.room_number} - #{room.type}
+      p.floor Tầng: 
+        span #{room.floor}
+      p.area Diện tích: 
+        span #{room.area || 'N/A'}
+      p.hour-price Giá theo giờ: 
+        span #{room.hour_price}đ
+      p.daily-price Giá theo ngày: 
+        span #{room.daily_price || 'N/A'}đ
+      p.notes
+        | Ghi chú: 
+        span.note-box #{room.notes || 'Không có ghi chú'}    
+      p.availability         
+        span.badge(class=`badge-${room.status}`) #{room.status === 'idle' ? 'Trống' : 'Đang cho thuê'}
+    .room-actions
+      a.btn.btn-primary(href=`/admin/room/edit/${room.room_number}`) Sửa
+      button.btn.btn-danger(type="button", onclick=`deleteRoom('${room.room_number}')`) Xóa
+
+mixin showRoom(room)
+  .room-card(id=`room-row-${room.room_number}`)
+    .room-image
+      if room.img
+        img(src=room.img, alt="Hình ảnh phòng")
+      else
+        p Chưa có hình ảnh
+    .room-info
+      .room-header
+        h3 #{room.room_number} - #{room.type}
+        span.status #{room.status === 'idle' ? 'Trống' : 'Đang cho thuê'}
+      p.floor Tầng: 
+        span #{room.floor}
+      p.area Diện tích: 
+        span #{room.area || 'N/A'}
+      p.notes
+        | Ghi chú: 
+        span.note-box #{room.notes || 'Không có ghi chú'}
+      p.availability         
+        span.badge(class=`badge-${room.status}`) #{room.status === 'idle' ? 'Trống' : 'Đang cho thuê'} 
+    .room-actions
+      if room.status === 'idle'
+        a.btn.btn-primary.rent(href=`/booking/${room.room_number}`) Thuê Phòng

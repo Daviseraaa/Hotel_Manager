@@ -9,7 +9,7 @@ const renderLoginPage = (req, res) => {
         err = "Ban chua dang nhap";
     }
 
-    res.render('login', { error: err });
+    res.render('auth/login', { error: err });
 };
 
 // Xử lý đăng nhập
@@ -19,12 +19,12 @@ const handleLogin = async (req, res) => {
     try {
         const user = await userModel.findByUsername(username);
         if (!user) {
-            return res.render('login', { error: 'Username không tồn tại!' });
+            return res.render('auth/login', { error: 'Username không tồn tại!' });
         }
 
         const isMatch = await bcrypt.compare(password, user.hash);
         if (!isMatch) {
-            return res.render('login', { error: 'Mật khẩu không đúng!' });
+            return res.render('auth/login', { error: 'Mật khẩu không đúng!' });
         }
 
         // Lưu vào session

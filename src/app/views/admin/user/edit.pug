@@ -1,0 +1,53 @@
+extends ../../layout
+
+block title
+  title Chỉnh Sửa Thông Tin Người Dùng
+
+block style
+  link(rel="stylesheet", href="/css/page/editUser.css")
+
+block content
+  .edit-user-container
+    h1 Chỉnh Sửa Thông Tin Người Dùng
+
+    form(method="POST" action=`/admin/user/edit/${user.id}` enctype="multipart/form-data")
+      .form-group
+        label(for="username") Tên đăng nhập
+        input#username(type="text" name="username" value=user.username required readonly)
+
+      .form-group
+        label(for="first_name") Họ
+        input#first_name(type="text" name="first_name" value=user.first_name required)
+
+      .form-group
+        label(for="last_name") Tên
+        input#last_name(type="text" name="last_name" value=user.last_name required)
+
+      .form-group
+        label(for="email") Email
+        input#email(type="email" name="email" value=user.email required)
+
+      .form-group
+        label(for="phone") Số điện thoại
+        input#phone(type="text" name="phone" value=user.phone required)
+
+      .form-group
+        label(for="address") Địa chỉ
+        textarea#address(name="address" rows="3")= user.address || 'Chưa cập nhật'
+
+      .form-group
+        label(for="role") Vai trò
+        select#role(name="role" required)
+          each role in roles
+            option(value=role selected=(role === user.role)) #{role}
+
+      .form-group
+        label(for="img") Ảnh đại diện
+        input#img(type="file" name="image")
+        if user.img
+          img(src=user.img alt="Ảnh đại diện")
+        input(type="hidden" name="oldImage" value=user.img)
+
+      .form-actions
+        button.btn.btn-primary(type="submit") Lưu Thay Đổi
+        a.btn.btn-secondary(href="/admin/user") Hủy

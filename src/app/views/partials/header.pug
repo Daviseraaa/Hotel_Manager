@@ -1,0 +1,31 @@
+header.header
+  .header-container
+    .logo
+        a(href="/dashboard")
+          img(src="/img/layout/logo.png", alt="Logo")
+    if session
+      if session.user
+        if session.user.role == "admin"
+          nav.nav-links
+            ul
+              li: a(href="/admin/room") Quản lý phòng
+              li: a(href="/admin/user") Quản lý nhân viên
+              li: a(href="/admin/service") Quản lý dịch vụ
+              li: a(href="/booking/manager") Thông tin thuê phòng    
+      else
+        nav.nav-links
+          ul
+            li: a(href="#") Đặt phòng
+            li: a(href="#") Điểm đến
+            li: a(href="#") Hỗ trợ
+            li: a(href="#") Chuyến đi
+    .actions
+      if !session
+        div.login-links
+          a(href="/login") Đăng nhập
+      else
+        div.user-session
+          div.profile-link
+            a(href="/user/profile") Profile
+          div.logout-link 
+            a(href="/logout") Đăng xuất

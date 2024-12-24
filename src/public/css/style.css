@@ -1,112 +1,137 @@
-.register-container, .dashboard-container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    margin: 0 auto;
-    margin-top: 50px;
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
+
+.user-session {
+  display: flex; /* Đặt các phần tử trong .user-session trên cùng một dòng */
+  align-items: center; /* Căn giữa theo trục dọc */
+  gap: 5px; /* Khoảng cách giữa Profile và Logout */
 }
 
-.error {
-    color: red;
-    text-align: center;
-    margin-bottom: 10px;
+.user-session a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-a {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #007BFF;
-    text-decoration: none;
+.user-session a:hover {
+  color: #0056b3;
 }
 
-a:hover {
-    text-decoration: underline;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
 }
 
-fieldset {
-    border: 2px solid #007BFF;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-  
-legend {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #007BFF;
-}
-
-.credit-entry {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
- }
-  
-.credit-entry button {
-    margin-top: 10px;
-    color: red;
-    cursor: pointer;
-}
-  
-button[type="submit"] {
-    margin-top: 20px;
-    background-color: #007BFF;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.hidden {
-    display: none;
-}
-
-header {
-    background-color: #ffffff;
-    padding: 15px 0;
-    border-bottom: 1px solid #ccc;
-}
-  
+/* Global container */
 .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+  max-width: 1200px; /* Đồng nhất kích thước */
+  margin: 0 auto;
+  padding: 0 20px;
+  background-color: #f9f9f9;
 }
-  
-  .logo a img {
-    width: 150px;
+
+/* Header */
+header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; /* Căn giữa */
+  background-color: #fff;
+  padding: 20px; /* Đồng nhất padding */
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Căn giữa nội dung */
 }
-  
-  .right-menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-  
-  .right-menu ul li {
-    margin-right: 20px;
+
+/* Logo */
+.logo img {
+  width: 120px;
 }
-  
-  .right-menu ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
+
+/* Navigation links */
+.nav-links ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
 }
-  
-  .right-menu ul li a:hover {
-    color: #007bff;
+
+.nav-links ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-links ul li a:hover {
+  color: #f33;
+}
+
+/* Actions */
+.login {
+  text-decoration: none;
+  color: #f33;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.login:hover {
+  color: #c00;
+}
+
+.profile-link, .logout-link {
+  padding-left: 5px;
+}
+
+/* Main Container */
+main.content {
+  width: 100%;
+  max-width: 1200px; /* Đồng nhất chiều rộng */
+  margin: 5px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+main.content h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+main.content p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  max-width: 1200px; /* Đồng nhất chiều rộng */
+  margin: 0 auto; /* Căn giữa */
+  background-color: #fffac8;
+  color: rgb(0, 20, 87);
+  text-align: center;
+  padding: 20px; /* Đồng nhất padding */
+  font-size: 14px;
+  font-weight: bold;
+  border-top: 1px solid #ddd;
 }

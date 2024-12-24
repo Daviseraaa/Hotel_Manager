@@ -1,0 +1,82 @@
+.room-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Hiển thị 5 cột */
+    gap: 20px; /* Khoảng cách giữa các phòng */
+    padding: 20px;
+}
+
+/* Nút "Thêm phòng" */
+a[href='/admin/room/create'] button {
+    background-color: #007bff; /* Màu nền xanh lam */
+    color: #fff; /* Màu chữ trắng */
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: bold; /* In đậm chữ */
+    padding: 10px 20px; /* Khoảng cách bên trong */
+    border: none; /* Xóa viền mặc định */
+    border-radius: 5px; /* Bo góc nhẹ */
+    cursor: pointer; /* Hiển thị con trỏ khi hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng mượt */
+}
+
+/* Hiệu ứng hover cho nút */
+a[href='/admin/room/create'] button:hover {
+    background-color: #0056b3; /* Màu xanh lam đậm hơn */
+    transform: translateY(-2px); /* Nổi lên khi hover */
+}
+
+/* Căn chỉnh nút thêm phòng */
+a[href='/admin/room/create'] {
+    display: inline-block; /* Hiển thị nút như khối nội dung */
+    margin-bottom: 20px; /* Thêm khoảng cách dưới */
+    text-decoration: none; /* Loại bỏ gạch chân liên kết */
+}
+
+/* Bộ lóc */
+.filter-section {
+    display: flex;
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    justify-content: space-between; /* Khoảng cách đều giữa các phần tử */
+    flex-wrap: wrap; /* Cho phép xuống dòng trên màn hình nhỏ */
+    gap: 20px; /* Khoảng cách giữa các phần tử */
+    margin-bottom: 20px;
+}
+
+.filter-form {
+    display: flex;
+    gap: 15px; /* Khoảng cách giữa các bộ lọc */
+    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không đủ chỗ */
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.filter-group select {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    min-width: 150px;
+}
+
+button.btn.btn-primary {
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center; /* Căn giữa nút */
+}
+
+button.btn.btn-primary:hover {
+    background-color: #0056b3;
+}

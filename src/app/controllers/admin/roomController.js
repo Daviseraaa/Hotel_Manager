@@ -4,8 +4,32 @@ const serverStore = require('../../../config/serverStore')
 
 const showRooms = async (req, res) => {
     try {
-        const rooms = await roomModel.getRoomData();
-        res.render('admin/room/index', { rooms, title: 'Trang quản lý phòng' });
+        const { status = 'all', floor = 'all', type = 'all' } = req.query;
+
+        let rooms = await roomModel.getRoomWithStatus(status);
+
+        const floors = [...new Set(rooms.map(room => room.floor))].sort((a, b) => a - b);
+        const roomTypes = [...new Set(rooms.map(room => room.type))];
+
+
+        if (floor !== 'all') {
+            rooms = rooms.filter(room => room.floor == floor);
+        }
+
+        if (type !== 'all') {
+            rooms = rooms.filter(room => room.type === type);
+        }
+
+        res.render('admin/room/index',
+        {
+            session: req.session,
+            rooms: rooms,
+            floors: floors,
+            roomTypes: roomTypes,
+            status: status,
+            floor: floor,
+            type: type,
+        });
     } catch (err) {
         console.log("Lỗi khi tải danh sách phòng")
         res.status(500).send({ message: 'Lỗi khi tải danh sách phòng: ' + err.message });
@@ -13,7 +37,10 @@ const showRooms = async (req, res) => {
 }
 
 const renderCreateRoom = async (req, res) => {
-    res.render('./admin/room/create')
+    res.render('./admin/room/create',
+    {
+        session: req.session
+    })
 }
 
 const handelCreateRoom = async (req, res) => {
@@ -35,11 +62,13 @@ const handelCreateRoom = async (req, res) => {
         const {room_number, floor, area, hour_price, daily_price, type, status, notes, furniture_name, furniture_number} = req.body
 
         var furniture = [];
-        let fname = Array.isArray(furniture_name) ? furniture_name : [furniture_name];
-        let fnumber = Array.isArray(furniture_number) ? furniture_number : [furniture_number];
-
-        for (var i = 0; i < fname.length; i++) {
-            furniture.push({ name: fname[i], number: fnumber[i] });
+        if (furniture_name && furniture_number) {
+            let fname = Array.isArray(furniture_name) ? furniture_name : [furniture_name];
+            let fnumber = Array.isArray(furniture_number) ? furniture_number : [furniture_number];
+    
+            for (var i = 0; i < fname.length; i++) {
+                furniture.push({ name: fname[i], number: fnumber[i] });
+            }
         }
         
         try {
@@ -59,7 +88,10 @@ const renderEditPage = async (req, res) => {
     const {number} = req.params
     try {
         const room = await roomModel.getRoomDetail(number)
-        res.render('admin/room/edit',{room})
+        res.render('admin/room/edit',{
+            session: req.session,
+            room: room
+        })
     } catch (err) {
         console.log('Lỗi khi tải thông tin phòng')
         res.status(500).send({message: 'Lỗi khi lấy thông tin phòng: ' + err.message})
@@ -69,23 +101,23 @@ const renderEditPage = async (req, res) => {
 const handelEditPage = async (req, res) => {
     const folderName = 'room';
     const upload = serverStore.uploadWithFolder(folderName);
+    var img
 
     upload.single('image')(req, res, async (err) => {
         if (err) {
             return res.status(500).send({success: false, message: "Lỗi khi tải file"});
         }
-        
-        var img
-        try{
-            img = `/img/${folderName}/${req.file.filename}`;
-        } catch (err) {
-            img = undefined;
-        }
-
-        const room_number = req.params.number
-        const { floor, area, hour_price, daily_price, type, status, notes, furnitures, newFurnitures} = req.body
-
         try {
+            try{
+                img = `/img/${folderName}/${req.file.filename}`;
+            } catch (err) {
+                img = undefined;
+            }
+
+            const room_number = req.params.number
+            const { floor, area, hour_price, daily_price, type, status, notes, furnitures, newFurnitures} = req.body
+
+
             await roomModel.editRoom({ room_number, floor, area, hour_price, daily_price, type, status, notes, furnitures, newFurnitures, img })
             if (req.body.oldImage && req.body.oldImage !== "/img/default/room.jpg") {
                 serverStore.deleteFile(req.body.oldImage)
@@ -93,6 +125,7 @@ const handelEditPage = async (req, res) => {
 
             res.status(200).send({success: true})
         } catch (err) {
+            serverStore.deleteFile(img)
             console.log('Lỗi khi sửa phòng' + err.message)
             res.status(500).send({success: false, message: "Lỗi khi sửa phòng"})
         }  
@@ -111,7 +144,7 @@ const handelDelete = async (req, res) => {
             if (fileExists) {
                 serverStore.deleteFile(img);
             } else {
-                console.warn("Hình ảnh không tồn tại, bỏ qua xóa file:", img);
+                console.log("Hình ảnh không tồn tại, bỏ qua xóa file:");
             }
         }
 

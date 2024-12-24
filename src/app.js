@@ -7,6 +7,8 @@ const path = require('path')
 const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
 const adminRoutes = require('./routes/admin/adminRoutes')
+const bookingRoutes = require('./routes/bookingRoutes')
+const paymentRoutes = require('./routes/paymentRoutes')
 const errorHandler = require('./middlewares/errorHandler')
 
 const app = express();
@@ -20,6 +22,7 @@ app.use(session({
 
 // Middleware config
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')))
 app.use((req, res, next) => {
     res.locals.baseUrl = req.baseUrl || '';
@@ -36,9 +39,12 @@ app.set('views', path.join(__dirname, 'app/views'))
 // Router
 app.use(authRoutes)
 app.use('/user',userRoutes)
-app.use('/admin', adminRoutes, (req, res) => {
+app.use('/admin', adminRoutes)
+app.use('/admin', (req, res) => {
     res.sendStatus(401)
 })
+app.use('/booking', bookingRoutes)
+app.use('/payment', paymentRoutes)
 
 // Server config
 const PORT = process.env.PORT

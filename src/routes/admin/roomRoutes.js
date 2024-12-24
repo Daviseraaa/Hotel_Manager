@@ -9,6 +9,6 @@ router.post('/create', roomController.handelCreateRoom)
 router.get('/edit/:number', roomController.renderEditPage)
 router.post('/edit/:number', roomController.handelEditPage)
 
-router.delete('/api/delete/:number', roomController.handelDelete)
+router.delete('/delete/:number', roomController.handelDelete)
 
 module.exports = router

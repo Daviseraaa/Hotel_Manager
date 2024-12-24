@@ -1,0 +1,164 @@
+/* Tổng quan container */
+.payment-container {
+    max-width: 800px;
+    margin: 30px auto;
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Tiêu đề */
+.payment-container h1 {
+    text-align: center;
+    color: #4CAF50;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Hộp chung */
+.box {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Form chọn ngân hàng */
+.select-bank-box {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.select-bank-box h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #555;
+}
+
+/* Dropdown ngân hàng */
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1em;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+}
+
+select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Nút tạo mã QR */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* QR Box */
+.qr-box {
+    text-align: center;
+}
+
+.qr-box h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #4CAF50;
+}
+
+.qr-code img {
+    margin: 20px auto;
+    max-width: 300px;
+    height: auto;
+    display: block;
+    border: 5px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Price Box */
+.price-box {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.price-box h2 {
+    font-size: 1.5em;
+    color: #555;
+}
+
+.price-box p strong {
+    font-size: 1.8em;
+    color: #d9534f;
+}
+
+/* Bank Details */
+.bank-details h2 {
+    font-size: 1.5em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.bank-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.bank-details li {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+.bank-details li strong {
+    color: #4CAF50;
+}
+
+.bank-details p {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .payment-container {
+        padding: 0 15px;
+    }
+
+    select {
+        font-size: 1em;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+
+    .qr-code img {
+        max-width: 100%;
+    }
+
+    .price-box p strong {
+        font-size: 1.5em;
+    }
+
+    .bank-details li {
+        font-size: 1em;
+    }
+}

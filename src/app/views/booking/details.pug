@@ -1,0 +1,154 @@
+extends ../layout
+
+block title
+  title Chi tiết đặt phòng
+
+block style
+  link(rel="stylesheet", href="/css/page/booking-details.css")
+
+block script 
+  script(src="/js/booking-details.js")
+
+block content
+  .booking-container
+    h1 Chi tiết đặt phòng
+    .details-grid
+      // Cột Thông tin người dùng
+      .box
+        h2 Thông tin khách hàng
+        .user-details
+          ul
+            li
+              strong Họ và Tên: 
+              | #{user.last_name} #{user.first_name}
+            li
+              strong Email: 
+              | #{user.email}
+            li
+              strong Số điện thoại: 
+              | #{user.phone}
+            li
+              strong Địa chỉ: 
+              | #{user.address}
+        br     
+        h2 Chi tiết thẻ thanh toán
+        .box
+          if credits && credits.length
+            ul
+              each credit in credits
+                li
+                  strong Tên thẻ: 
+                  | #{credit.name}
+                  br
+                  strong Số thẻ: 
+                  | #{credit.number}
+          else
+            p Không có thông tin thẻ tín dụng.
+
+        if guess.username
+          .guess-info.box
+            h2 Thông tin tài khoản của bạn
+            p
+              strong Tên đăng nhập: 
+              | #{guess.username}
+            p
+              strong Mật khẩu: 
+              | #{guess.password}
+            p
+              | Vui lòng ghi nhớ thông tin tài khoản này để đăng nhập sau!
+        else
+
+      // Cột Thông tin phòng
+      .room-details
+        h2 Thông tin phòng
+        img(src=room.img alt="Ảnh phòng" style="width: 100%; border-radius: 8px;")
+        ul
+          li
+            strong Số phòng: 
+            | #{room.room_number}
+          li
+            strong Tầng: 
+            | #{room.floor}
+          li
+            strong Diện tích: 
+            | #{room.area || 'Không có thông tin'} m²
+          li
+            strong Giá theo giờ: 
+            | #{room.hour_price} VND
+          li
+            strong Giá theo ngày: 
+            | #{room.daily_price || 'Không có thông tin'} VND
+          li
+            strong Loại phòng: 
+            | #{room.type}
+          li
+            strong Ghi chú: 
+            | #{room.notes || 'Không có thông tin'}
+
+        h3 Nội thất
+        .box
+          if room.furnitures && room.furnitures.length
+            ul
+              each item in room.furnitures
+                li
+                  strong #{item.name}: 
+                  | #{item.number} cái
+          else
+            p Không có thông tin nội thất.
+
+      // Cột Thông tin dịch vụ
+      .service-details
+        h2 Chi tiết thời gian
+        .box
+          ul
+            li
+              strong Ngày nhận phòng: 
+              time(data-datetime=booking.from_time)
+            li
+              strong Ngày trả phòng: 
+              time(data-datetime=booking.to_time)
+        br
+        // Giá phòng
+        h2 Chi tiết giá phòng
+        .box
+          ul
+            li
+              strong Số ngày: 
+              | #{priceDetails.days} ngày
+            li
+              strong Số giờ lẻ: 
+              | #{priceDetails.hours} giờ
+            li
+              strong Tổng giá: 
+              | #{priceDetails.total_price} VND
+        br
+        // Dịch vụ đã sử dụng
+        h2 Chi tiết dịch vụ
+        .box
+          if services && services.length
+            ul
+              each service in services
+                li
+                  strong Tên dịch vụ: 
+                  | #{service.name}
+                  br
+                  strong Số lượng: 
+                  | #{service.number}
+                  br
+                  strong Tổng tiền: 
+                  | #{service.income * service.number} VND
+          else
+            p Không có dịch vụ nào được sử dụng.
+
+        // Tổng giá thành
+        .total-price-box
+          h3 Tổng giá thành
+          p
+            strong #{booking.total_price} VND
+
+    // Hành động
+    .actions
+      if role === 'admin'
+        button(type="button", onclick=`location.href='/admin/confirm-payment/${booking.id}'`) Xác nhận thanh toán
+      else
+        button(type="button", onclick=`location.href='/payment/'`) Chuyển tới trang thanh toán

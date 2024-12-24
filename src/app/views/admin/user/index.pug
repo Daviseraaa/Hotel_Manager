@@ -1,0 +1,39 @@
+extends ../../layout
+
+block title
+  title Danh Sách Người Dùng
+
+block style
+  link(rel="stylesheet", href="/css/page/userList.css")
+
+block content
+  .user-list-container
+    h1 Danh Sách Người Dùng
+
+    if users.length
+      .user-cards
+        each user in users
+          .user-card
+            .user-image
+              if user.img
+                img(src=user.img alt=`Ảnh đại diện của ${user.first_name} ${user.last_name}`)
+              else
+                img(src="/img/default/prof.jpg" alt="Ảnh đại diện mặc định")
+            .user-info
+              h3 #{user.last_name} #{user.first_name}
+              h4 #{user.role}
+              .box
+                p
+                  strong Email: 
+                  | #{user.email}
+                p
+                  strong Số điện thoại: 
+                  | #{user.phone}
+                p
+                  strong Địa chỉ: 
+                  | #{user.address || 'Chưa cập nhật'}
+            .user-actions
+              a.btn.btn-primary(href=`/admin/user/view/${user.id}`) Xem chi tiết
+              a.btn.btn-secondary(href=`/admin/user/edit/${user.id}`) Chỉnh sửa
+    else
+      p Không có người dùng nào để hiển thị.

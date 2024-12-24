@@ -1,0 +1,211 @@
+/* Toàn bộ trang quản lý dịch vụ */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  color: #333;
+}
+
+/* Tiêu đề */
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Nút thêm dịch vụ */
+button#add-service-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button#add-service-btn:hover {
+  background-color: #45a049;
+}
+
+/* Form modal (dùng cho cả thêm và sửa dịch vụ) */
+/* Form modal */
+.modal-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 450px; /* Thu nhỏ form */
+  z-index: 1100;
+  display: none;
+}
+
+.modal-form.active {
+  display: block;
+}
+
+.modal-form h2 {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+/* Hình ảnh hiển thị trong form sửa */
+img#edit-current-image {
+  display: block; /* Chuyển hình ảnh thành block */
+  margin: 10px auto; /* Căn giữa */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-width: 100%; /* Đảm bảo không vượt quá form */
+  width: 120px; /* Kích thước nhỏ hơn */
+  height: 120px; /* Giữ tỷ lệ */
+}
+
+/* Điều chỉnh khoảng cách giữa các nhóm trường */
+.modal-form .form-group {
+  margin-bottom: 12px;
+}
+
+/* Nút hành động */
+.modal-form button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 12px; /* Nhỏ gọn hơn */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-form button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.modal-form button.btn-secondary {
+  background-color: #f44336;
+  color: white;
+  padding: 8px 12px; /* Nhỏ gọn hơn */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-form button.btn-secondary:hover {
+  background-color: #d32f2f;
+}
+
+
+/* Overlay nền mờ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+}
+
+.modal-overlay.active {
+  display: block;
+}
+
+/* Container chứa các box dịch vụ */
+.services-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start; /* Căn trái các dịch vụ */
+  margin-top: 10px;
+}
+
+/* Box dịch vụ */
+.service-box {
+  flex: 1 1 calc(33.333% - 10px); /* Chiếm 1/3 chiều rộng container */
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  max-width: calc(33.333% - 10px); /* Đảm bảo không vượt quá 1/3 container */
+}
+
+.service-box:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.service-image {
+  flex: 0 0 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #004b63;
+  overflow: hidden;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-details {
+  flex: 1;
+  padding: 10px 15px;
+  background-color: #f4f4f4;
+}
+
+.service-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 5px;
+}
+
+.service-price {
+  font-size: 16px;
+  margin: 0 0 5px;
+}
+
+.service-info {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+}
+
+.service-actions {
+  margin-top: 10px;
+}
+
+.service-actions button {
+  background-color: #004b63;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.service-actions button:hover {
+  background-color: #003847;
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  .service-box {
+    flex: 1 1 calc(50% - 10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .service-box {
+    flex: 1 1 100%;
+  }
+}

@@ -6,22 +6,28 @@ function getImage(number) {
 function deleteRoom(number) {
     if (confirm(`Bạn có chắc chắn muốn xóa phòng số ${number}?`)) {
         let img = getImage(number);
-        console.log(img)
+        console.log('Image URL:', img);
+
         if (!img) {
             alert('Không tìm thấy thông tin hình ảnh, không thể xóa phòng!');
             return;
         }
 
-        fetch(`./api/delete/${number}`, {
+        fetch(`/admin/room/delete/${number}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
-            body: new URLSearchParams({
-                img: img // Chuyển đổi dữ liệu thành dạng key=value
-            }).toString()
+            body: JSON.stringify({
+                img: img
+            })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.message === 'Xóa phòng thành công') {
                 alert('Phòng đã được xóa thành công!');
@@ -32,7 +38,8 @@ function deleteRoom(number) {
             }
         })
         .catch(err => {
-            alert('Có lỗi xảy ra, vui lòng thử lại!' + err.message);
+            console.error('Fetch error:', err);
+            alert('Có lỗi xảy ra, vui lòng thử lại! ' + err.message);
         });
     }
 }

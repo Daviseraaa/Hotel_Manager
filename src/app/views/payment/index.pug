@@ -1,0 +1,56 @@
+extends ../layout
+
+block title
+  title Thanh toán
+
+block style
+  link(rel="stylesheet", href="/css/page/payment.css")
+
+block script 
+  script(src="/js/payment.js")
+
+block content
+  .payment-container
+    h1 Thanh toán
+
+    // Form chọn ngân hàng
+    form(method="GET" action=`/payment/`)
+      .box.select-bank-box
+        h2 Chọn ngân hàng để thanh toán
+        select(name="bankCode" required)
+          each item in banks
+            option(value=item.bankCode selected=(item.bankCode === bank.bankCode)) #{item.name}
+        input(type="hidden" name="amount" value=amount)
+        input(type="hidden" name="description" value=description)
+        button(type="submit") Tạo mã QR
+
+    // Hiển thị QR Code sau khi chọn ngân hàng
+    if qr
+      .payment-details
+        .box.bank-details
+              if bank
+                h2 Thông tin tài khoản nhận tiền
+                ul
+                  li
+                    strong Tên ngân hàng: 
+                    | #{bank.name}
+                  li
+                    strong Số tài khoản: 
+                    | #{bank.account_number}
+                  li
+                    strong Tên chủ tài khoản: 
+                    | #{bank.account_holder}
+        .box.price-box
+          h2 Số tiền cần thanh toán
+          p
+            strong #{amount} VND
+          p Nội dung thanh toán #{description}
+        .box.qr-box
+          h2 Quét mã QR để thanh toán
+          .qr-code
+            img(src=qr alt="QR Code Thanh toán" style="width: 100%; max-width: 300px; margin: 0 auto; display: block;")
+          p
+            | Sử dụng ứng dụng ngân hàng hoặc ví điện tử để quét mã QR bên trên và hoàn tất thanh toán.
+          p
+            | Sau khi thanh toán, vui lòng giữ lại biên lai để đối chiếu nếu cần.
+

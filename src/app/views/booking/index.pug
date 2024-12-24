@@ -1,0 +1,121 @@
+extends ../layout
+
+block title
+  title Đặt phòng
+
+block style
+  link(rel="stylesheet", href="/css/page/booking.css")
+
+block script
+  script(src="/js/booking.js")
+
+block content
+  .booking-container
+    .steps-container
+      if user
+        .box
+          .user-info
+            h3 Chào #{user.last_name} đã quay lại!
+      .box
+        h2 Đặt Phòng
+        form(action=`/booking/${room.room_number}` method="POST")
+          // Step 1: Thông tin về bạn
+          h3 Bước 1: Thông tin về bạn
+          label(for="first_name") Họ:
+          input#first_name(
+            type="text", 
+            name="first_name", 
+            placeholder="Nhập họ của bạn", 
+            required, 
+            value=(user && user.first_name) ? user.first_name : '', 
+            readonly=(user && user.first_name) ? true : false
+          )
+          
+          label(for="last_name") Tên:
+          input#last_name(
+            type="text", 
+            name="last_name", 
+            placeholder="Nhập tên của bạn", 
+            required, 
+            value=(user && user.last_name) ? user.last_name : '', 
+            readonly=(user && user.last_name) ? true : false
+          )
+
+          label(for="email") Email:
+          input#email(
+            type="email", 
+            name="email", 
+            placeholder="Nhập email của bạn", 
+            required, 
+            value=(user && user.email) ? user.email : '', 
+            readonly=(user && user.email) ? true : false
+          )
+
+          label(for="phone") Số điện thoại:
+          input#phone(
+            type="text", 
+            name="phone", 
+            placeholder="Nhập số điện thoại", 
+            required, 
+            value=(user && user.phone) ? user.phone : '', 
+            readonly=(user && user.phone) ? true : false
+          )
+
+          label(for="phone") Địa chỉ:
+          input#address(
+            type="text", 
+            name="address", 
+            placeholder="Nhập địa chỉ", 
+            required, 
+            value=(user && user.address) ? user.address : '', 
+            readonly=(user && user.address) ? true : false
+          )
+
+          // Step 2: Chi tiết về nơi cư trú
+          h3 Bước 2: Chi tiết về nơi cư trú
+          label(for="from_time") Ngày nhận phòng:
+          input#from_time(type="datetime-local", name="from_time", required)
+
+          label(for="to_time") Ngày trả phòng:
+          input#to_time(type="datetime-local", name="to_time", required)
+
+          // Step 3: Chọn thẻ tín dụng
+          h3 Bước 3: Chi tiết thanh toán
+          if credits && credits.length
+            label(for="selected_credit") Chọn Thẻ Thanh Toán:
+            select#selected_credit(name="selected_credit", required)
+              option(value="" disabled selected) -- Chọn thẻ thanh toán --
+              each credit in credits
+                option(value=credit.number) #{credit.name} (#{credit.number})
+          else
+            p Bạn chưa có thông tin thẻ tín dụng được lưu. Vui lòng nhập thẻ tín dụng ở phần thông tin khách hàng.
+            label(for="card_number") Số thẻ tín dụng:
+            input#card_number(type="text", name="card_number", placeholder="Nhập số thẻ tín dụng", required)
+
+            label(for="card_name") Tên trên thẻ:
+            input#card_name(type="text", name="card_name", placeholder="Nhập tên trên thẻ", required)
+
+            label(for="expiry_date") Ngày hết hạn:
+            input#expiry_date(type="month", name="expiry_date", required)
+          // Submit Button
+          button(type="submit") Hoàn tất đặt phòng
+
+    .room-details
+      .box
+        h2 Thông tin phòng: #{room.room_number}
+        img(src=room.img alt="Ảnh phòng" style="width: 100%; border-radius: 8px;")
+        ul
+          li Trạng thái: #{room.status}
+          li Tầng: #{room.floor}
+          li Diện tích: #{room.area || 'Không có thông tin'} m²
+          li Giá theo giờ: #{room.hour_price} VND
+          li Giá theo ngày: #{room.daily_price || 'Không có thông tin'} VND
+          li Loại phòng: #{room.type}
+          li Ghi chú: #{room.notes || 'Không có thông tin'}
+        h3 Nội thất
+        if room.furnitures && room.furnitures.length
+          ul
+            each item in room.furnitures
+              li #{item.name}: #{item.number} cái
+        else
+          p Không có thông tin nội thất.

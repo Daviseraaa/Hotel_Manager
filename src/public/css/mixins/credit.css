@@ -1,0 +1,45 @@
+.credit-card {
+  width: 450px;
+  height: auto;
+  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 10px auto;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+.credit-card:hover {
+  transform: scale(1.05) rotate(1deg);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+.credit-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.card-number {
+  font-size: 1.4em;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  animation: fadeIn 1s ease;
+}
+.card-name {
+  font-size: 1.1em;
+  font-weight: bold;
+  animation: fadeIn 1.5s ease;
+}
+
+/* Adding decorative chips */
+.chip {
+  width: 40px;
+  height: 30px;
+  background: gold;
+  border-radius: 5px;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

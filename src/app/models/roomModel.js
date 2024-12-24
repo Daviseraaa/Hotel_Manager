@@ -155,11 +155,36 @@ const editRoom = async (room) => {
     }
 }
 
+const getRoomWithStatus = async (room_status) => {
+    let query = `
+        SELECT *
+        FROM room
+        JOIN room_infor ON room.number = room_infor.room_number
+    `;
+
+    if (room_status === 'idle') {
+        query += ` WHERE room.status = 'idle'`;
+    } else if (room_status === 'bussy') {
+        query += ` WHERE room.status = 'bussy'`;
+    }
+
+    const connection = await db.getConnection();
+    
+    try {
+        const [rooms] = await connection.execute(query);
+        return rooms;
+    } catch (err) {
+        console.error("Error in getRooms:", err.message);
+        throw err;
+    }
+}
+
 module.exports = {
     checkRoomExists,
     createRoom,
     deleteRoom,
     getRoomData,
     getRoomDetail,
-    editRoom
+    editRoom,
+    getRoomWithStatus
 }

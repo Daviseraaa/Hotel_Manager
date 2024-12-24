@@ -1,0 +1,68 @@
+doctype html
+html
+  head
+    if error
+      p.error= error
+    
+    title User Registration
+    link(rel="stylesheet" href="/css/register.css")
+    link(rel="stylesheet", href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css")
+
+    script.
+      function addCreditField() {
+        const container = document.getElementById('credit-container');
+        const newCreditDiv = document.createElement('div');
+        newCreditDiv.classList.add('credit-entry');
+
+        newCreditDiv.innerHTML = `
+          <div class="input-box credit">          
+            <input type="text" name="credit_name" required placeholder="Enter credit name">
+          </div>
+
+          <div class="input-box credit">          
+          <input type="text" name="credit_number" required placeholder="Enter credit card number">
+          </div>
+          <button type="button" class="btn rm-btn" onclick="removeCreditField(this)"><i class='bx bxs-trash'></i></button>
+        `;
+        
+        container.appendChild(newCreditDiv);
+      }
+
+      function removeCreditField(button) {
+        const creditDiv = button.parentElement;
+        creditDiv.remove();
+      }
+  body
+    .wrapper
+      h1 Đăng ký
+      form(action="/register" method="POST")
+        fieldset
+          legend Thông tin tài khoản
+          div.input-box
+            input(type="text" id="username" name="username" required placeholder="Tên tài khoản")
+          div.input-box
+            input(type="password" id="password" name="password" required placeholder="Mật khẩu")
+          div.input-box  
+            input(type="password" id="confirmPassword" name="confirmPassword" required placeholder="Nhập lại mật khẩu")
+        
+        fieldset
+          legend Thông tin cá nhân
+          div.row
+            div.input-box
+              input(type="text" id="first_name" name="first_name" required placeholder="Họ")
+            div.input-box          
+              input(type="text" id="last_name" name="last_name" required placeholder="Tên")
+          div.input-box          
+            input(type="email" id="email" name="email" required placeholder="Email")
+          div.input-box          
+            input(type="tel" id="phone" name="phone" required placeholder="Số điện thoại")
+          div.input-box          
+            input(type="text" id="address" name="address" placeholder="Địa chỉ")
+
+        fieldset
+          legend Thông tin thẻ ngân hàng
+          #credit-container
+
+          button(type="button" class="btn add-btn" onclick="addCreditField()") Thêm thẻ
+        
+        button(type="submit" class="btn") Đăng ký

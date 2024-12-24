@@ -1,55 +1,59 @@
+extends ../../layout.pug
+
 include ../../mixins/furniture.pug
 
-doctype html
-html
-  head
-    title Đăng ký phòng
-    link(rel="stylesheet" href="/css/style.css")
-    script(src="/js/createRoom.js")
+block title
+  title Trang tạo phòng
 
-  body
-    h1 Đăng ký phòng
-    form(action="/admin/room/create" method="POST" enctype="multipart/form-data")
-      fieldset
-        legend Thông tin phòng
-        label(for="room_number") Số phòng:
-        input(type="number" id="room_number" name="room_number" required placeholder="Nhập số phòng")
+block style
+  link(rel="stylesheet", href="/css/page/createRoom.css")
+  link(rel="stylesheet", href="/css/mixins/furniture.css")
 
-        label(for="floor") Tầng:
-        input(type="number" id="floor" name="floor" required placeholder="Nhập tầng")
+block script 
+  script(src="/js/createRoom.js")
 
-        label(for="area") Diện tích (m²):
-        input(type="number" id="area" name="area" placeholder="Nhập diện tích phòng")
-
-        label(for="hour_price") Giá theo giờ:
-        input(type="number" id="hour_price" name="hour_price" required placeholder="Nhập giá theo giờ")
-
-        label(for="daily_price") Giá theo ngày:
-        input(type="number" id="daily_price" name="daily_price" placeholder="Nhập giá theo ngày")
-
-        label(for="type") Loại phòng:
-        select(id="type" name="type" required)
-          option(value="single") Phòng đơn
-          option(value="double") Phòng đôi
-          option(value="suite") Phòng hạng sang
-
-        label(for="status") Trạng thái:
-        select(id="status" name="status" required)
-          option(value="idle") Trống
-          option(value="bussy") Đang sử dụng
-
-        label(for="image") Hình ảnh:
-        input(type="file" id="image" name="image" accept="image/*")
-
-        label(for="notes") Ghi chú:
-        textarea(id="notes" name="notes" placeholder="Nhập ghi chú về phòng")
-
-      fieldset
-        legend Đồ nội thất
-        #furniture-container
-
-        button(type="button" id="add-furniture-btn") Thêm Nội Thất
-      button(type="submit") Thêm Phòng
-    template#furniture-template
-      +add-furniture()
-      
+block content 
+  h1 Đăng ký phòng
+  form(action="/admin/room/create" method="POST" enctype="multipart/form-data" class="form-container")
+    fieldset
+      legend Thông tin phòng
+      .row
+        .field-group
+          label(for="room_number") Số phòng:
+          input(type="number" id="room_number" name="room_number" required placeholder="Nhập số phòng")
+        .field-group
+          label(for="floor") Tầng:
+          input(type="number" id="floor" name="floor" required placeholder="Nhập tầng")
+        .field-group
+          label(for="area") Diện tích (m²):
+          input(type="number" id="area" name="area" placeholder="Nhập diện tích phòng")
+      .row
+        .field-group
+          label(for="hour_price") Giá theo giờ:
+          input(type="number" id="hour_price" name="hour_price" required placeholder="Nhập giá theo giờ")
+        .field-group
+          label(for="daily_price") Giá theo ngày:
+          input(type="number" id="daily_price" name="daily_price" placeholder="Nhập giá theo ngày")
+        .field-group
+          label(for="type") Loại phòng:
+          input(id="type" name="type" placeholder="Loại phòng")
+      .row
+        .field-group
+          label(for="status") Trạng thái:
+          select(id="status" name="status" required)
+            option(value="idle") Trống
+            option(value="bussy") Đang sử dụng
+        .field-group
+          label(for="image") Hình ảnh:
+          input(type="file" id="image" name="image" accept="image/*")
+      .row
+        .field-group.full-width
+          label(for="notes") Ghi chú:
+          textarea(id="notes" name="notes" placeholder="Nhập ghi chú về phòng")
+    fieldset
+      legend Đồ nội thất
+      #furniture-container
+      button(type="button" id="add-furniture-btn") Thêm Nội Thất
+    button(type="submit") Thêm Phòng
+  template#furniture-template
+    +add-furniture()
