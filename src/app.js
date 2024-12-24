@@ -37,6 +37,9 @@ app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'app/views'))
 
 // Router
+app.get('/', (req, res) => {
+    res.redirect('/dashboard')
+})
 app.use(authRoutes)
 app.use('/user',userRoutes)
 app.use('/admin', adminRoutes)

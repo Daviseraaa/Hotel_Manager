@@ -102,11 +102,12 @@ const checkout = async (bookingId) => {
         }
 
         const bookingInfo = booking[0];
+        const income = await calculateTotalAmount(bookingId)
 
         const [historyResult] = await connection.execute(
-            `INSERT INTO history (user_id, user_name, room_number, room_type, from_time, to_time)
-             VALUES (?, ?, ?, ?, ?, ?)`,
-            [bookingInfo.user_id, '', bookingInfo.room_number, bookingInfo.room_type, bookingInfo.from_time, bookingInfo.to_time]
+            `INSERT INTO history (user_id, user_name, room_number, room_type, from_time, to_time, income)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [bookingInfo.user_id, '', bookingInfo.room_number, bookingInfo.room_type, bookingInfo.from_time, bookingInfo.to_time, income]
         );
 
         const historyId = historyResult.insertId;
@@ -184,6 +185,16 @@ const calculateTotalAmount = async (bookingId) => {
     }
 };
 
+const getIncome = async () => {
+    const connection = await db.getConnection();
+    try {
+        const [row] = await connection.execute('SELECT sum(amount) as income FROM income_log')
+        return row[0].income
+    } catch (err) {
+        throw err
+    }
+}
+
 module.exports = {
     addBooking,
     findById,
@@ -191,5 +202,6 @@ module.exports = {
     getBooking,
     confirmPayment,
     checkout,
-    calculateTotalAmount
+    calculateTotalAmount,
+    getIncome
 }

@@ -11,9 +11,12 @@ block style
 
 block content
   section
-    .dashboard-container
-      h1 Chào mừng, #{user.username}!
+    if user
+      .dashboard-container
+        h1 Chào mừng, #{user.username}!
 
+      if user.role == 'admin'
+        h1 Doanh thu tổng #{income} VND
     .filter-section
       form(method="GET", action="/dashboard")
         label(for="filter") Bộ lọc:
@@ -24,9 +27,10 @@ block content
 
     .room-list
       if rooms
-        if user.role == "admin"
-          each room in rooms
-            +showRoom(room)
+        if user
+          if user.role == "admin"
+            each room in rooms
+              +showRoom(room)
         else
           each room in rooms
             +showRoom(room)

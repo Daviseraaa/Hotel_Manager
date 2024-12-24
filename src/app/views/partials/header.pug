@@ -19,12 +19,17 @@ header.header
               li: a(href="/user/service") Dịch vụ
               li: a(href="") Hỗ trợ
     .actions
-      if !session
-        div.login-links
+      if session
+        if session.user
+          div.user-session
+            div.profile-link
+              a(href="/user/profile") Profile
+            div.logout-link 
+              a(href="/logout") Đăng xuất
+        else 
+          div.login-links
           a(href="/login") Đăng nhập
       else
-        div.user-session
-          div.profile-link
-            a(href="/user/profile") Profile
-          div.logout-link 
-            a(href="/logout") Đăng xuất
+        div.login-links
+          a(href="/login") Đăng nhập
+

@@ -33,7 +33,7 @@ const handleRegister = async (req, res) => {
 
         const user_id = await userModel.createUser(username, hashedPassword);
 
-        await userModel.addUserinfor(user_id, first_name, last_name, email, phone, address);
+        await userModel.addUserinfor(user_id, {first_name, last_name, email, phone, address});
 
         // Adding credit
         if (credit_name)
@@ -62,17 +62,16 @@ const renderDashboard = async (req, res) => {
 
     const user = req.session.user;
     const filter = req.query.filter || 'all';
-    if (!req.session.user) {
-        return res.redirect('/login');
-    }
+
     try {
         const rooms = await roomModel.getRoomWithStatus(filter)
-
+        const income = await bookingModel.getIncome()
         res.render('dashboard', {
             session: req.session,
             user: user,
             filter: filter,
             rooms: rooms,
+            income: income
         });
 
     } catch (error) {

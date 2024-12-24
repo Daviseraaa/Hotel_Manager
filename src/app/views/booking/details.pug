@@ -149,6 +149,7 @@ block content
     // Hành động
     .actions
       if role === 'admin'
-        button(type="button", onclick=`location.href='/admin/confirm-payment/${booking.id}'`) Xác nhận thanh toán
+        form(action=`/admin/api/confirm-payment/${booking.id}`, method="POST") 
+          button(type="submit") Xác nhận thanh toán
       else
-        button(type="button", onclick=`location.href='/payment/'`) Chuyển tới trang thanh toán
+        button(type="button", onclick=`location.href='/payment/?bankCode=MB&amount=${booking.total_price}&description=Tien%20thue%20phong'`) Chuyển tới trang thanh toán

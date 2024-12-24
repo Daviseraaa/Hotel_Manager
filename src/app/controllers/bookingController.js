@@ -91,9 +91,14 @@ const handleBooking = async (req, res) => {
             return;
         }
 
-        console.log(room_number)
+        const room = await roomModel.findByNumber(room_number)
+        if (room.status === 'busy') {
+            await db.rollbackTransaction();
+            res.status(500).send(`Lỗi trong quá trình đặt phòng! Phòng đang được thuê!`);
+        }
         const result = await bookingModel.addBooking({ user_id, room_number, from_time, to_time });
-
+        await roomModel.editSatus(room_number, 'busy')
+        
         await db.commitTransaction(); // Commit nếu mọi thứ thành công
 
         res.redirect(`/booking/details/${result}?username=${user_name}&password=${password}`)

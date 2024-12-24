@@ -179,6 +179,25 @@ const getRoomWithStatus = async (room_status) => {
     }
 }
 
+const editSatus = async (roomNumber, status) => {
+    const connection = await db.getConnection();
+    try {
+        const [rows] = await connection.execute('UPDATE room SET status = ? WHERE number = ?', [roomNumber, status]);
+        return   
+    } catch (err) {
+        throw err
+    }
+}
+
+const findByNumber = async (roomNumber) => {
+    const connection = await db.getConnection();
+    try {
+        const [rows] = await connection.execute('SELECT * FROM room WHERE number = ?', [roomNumber]);
+        return   
+    } catch (err) {
+        throw err
+    }
+}
 module.exports = {
     checkRoomExists,
     createRoom,
@@ -186,5 +205,7 @@ module.exports = {
     getRoomData,
     getRoomDetail,
     editRoom,
-    getRoomWithStatus
+    getRoomWithStatus,
+    editSatus,
+    findByNumber
 }
