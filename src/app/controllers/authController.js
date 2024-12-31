@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel.js');
-const { urlencoded } = require('express');
 
 // Hiển thị trang đăng nhập
 const renderLoginPage = (req, res) => {
